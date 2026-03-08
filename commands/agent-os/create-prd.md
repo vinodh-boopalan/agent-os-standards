@@ -184,6 +184,22 @@ These are checkable items that define "done."
 Then use AskUserQuestion:
 
 ```
+Does **{Feature Name}** have any known architectural implications?
+
+Examples:
+- Needs real-time updates (WebSocket, SSE)
+- Requires offline storage / sync
+- Integrates with a third-party API
+- Needs background processing
+
+(Describe implications, or "none")
+```
+
+If the user provides implications, add `- **Architectural Notes:** {implications}` to the feature entry in the PRD template.
+
+Then use AskUserQuestion:
+
+```
 Got it. **{Feature Name}** captured.
 
 Next feature, or done?

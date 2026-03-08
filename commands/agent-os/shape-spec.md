@@ -133,6 +133,34 @@ Should I include these in the spec? (yes / adjust: remove 3, add frontend/forms)
 
 Read the confirmed standards files to include their content in the plan context.
 
+### Step 5.5: Identify Architectural Decisions
+
+Use AskUserQuestion:
+
+```
+Does this feature require any architectural decisions?
+
+Examples:
+- Choosing a database or storage approach
+- Selecting a third-party service (auth, payments, notifications)
+- Deciding on a communication pattern (REST vs WebSocket vs GraphQL)
+- Introducing a new infrastructure component
+
+[If existing ADRs found, list them:]
+Existing ADRs for reference:
+- ADR-001: {title}
+- ADR-002: {title}
+...
+
+(Describe anticipated decisions, or "none")
+```
+
+If the user identifies decisions:
+- Note them for inclusion in shape.md under `## Architectural Decisions`
+- Each decision will be marked as pending until `/create-adr` is run
+
+If the user says "none", skip this — do not add the section to shape.md.
+
 ### Step 6: Generate Spec Folder Name
 
 Create a folder name using this format:
@@ -256,7 +284,13 @@ The shape.md file should capture:
 
 - api/response-format — [why it applies]
 - api/error-handling — [why it applies]
+
+## Architectural Decisions
+- [ ] {Decision title} — Pending (run /create-adr)
+- [x] ADR-{NNN}: {title} — Accepted
 ```
+
+Note: Only include the `## Architectural Decisions` section if decisions were identified in Step 5.5. Omit entirely if the user said "none".
 
 ## standards.md Content
 
