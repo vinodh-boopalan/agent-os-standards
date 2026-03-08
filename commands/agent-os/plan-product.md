@@ -40,12 +40,28 @@ If option 3, stop here.
 
 ### Step 2: Gather Product Vision (for mission.md)
 
+**First, check for discovery documents.**
+
+Check if `agent-os/discovery/` exists and contains files (beyond README.md).
+
+If discovery documents exist, read them and summarize key points about the product — problems mentioned, target users discussed, solution approaches, and any other relevant context.
+
+Use these findings to pre-fill or suggest answers during the Q&A below. When asking each question, include a suggestion based on discovery docs if relevant:
+
+```
+Based on your discovery documents, it looks like [summary]. I'll use this context to suggest answers — adjust as needed.
+```
+
+**Then proceed with vision questions.**
+
 Use AskUserQuestion:
 
 ```
 Let's define your product's mission.
 
 **What problem does this product solve?**
+
+[If discovery docs had relevant info: "Based on discovery documents, it seems like: {suggested answer}. Is this right, or would you adjust it?"]
 
 (Describe the core problem or pain point you're addressing)
 ```

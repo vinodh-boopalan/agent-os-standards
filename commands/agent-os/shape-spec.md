@@ -26,7 +26,29 @@ Do not proceed with any steps below until confirmed to be in plan mode.
 
 ### Step 1: Clarify What We're Building
 
-Use AskUserQuestion to understand the scope:
+**First, check if a PRD exists.**
+
+Check if `agent-os/product/prd.md` exists.
+
+If it exists, read it and find features with `status: draft` (not yet specced). Present them as options:
+
+Use AskUserQuestion:
+
+```
+I found a PRD with these unspecced features:
+
+1. F-001: {Feature Name} — {brief description}
+2. F-003: {Feature Name} — {brief description}
+...
+
+Pick a feature by number, or describe something else to build.
+
+(Enter a number or describe a new feature)
+```
+
+If the user picks a PRD feature, load its description, user stories, and acceptance criteria as context for shaping. Skip directly to Step 2 (visuals) since the scope is already defined.
+
+**If no PRD exists**, use AskUserQuestion to understand the scope:
 
 ```
 What are we building? Please describe the feature or change.
@@ -76,16 +98,20 @@ If references are provided, read and analyze them to inform the plan.
 
 Check if `agent-os/product/` exists and contains files.
 
-If it exists, read key files (like `mission.md`, `roadmap.md`, `tech-stack.md`) and use AskUserQuestion:
+If it exists, read key files (like `mission.md`, `roadmap.md`, `tech-stack.md`, `prd.md`) and use AskUserQuestion:
 
 ```
 I found product context in agent-os/product/. Should this feature align with any specific product goals or constraints?
 
 Key points from your product docs:
 - [summarize relevant points]
+[If a PRD feature was selected in Step 1, include:]
+- Acceptance criteria from PRD: [list the acceptance criteria for the selected feature]
 
 (Confirm alignment or note any adjustments)
 ```
+
+**Also check `agent-os/discovery/`** for any documents relevant to the feature being shaped. If relevant discovery docs exist, mention key findings that relate to this specific feature.
 
 If no product folder exists, skip this step.
 
@@ -177,6 +203,19 @@ Plan complete. When you approve and execute:
 
 Ready to start? (approve / adjust)
 ```
+
+### Step 10: Update PRD Status (Post-Execution)
+
+**After the spec is saved** (Task 1 is complete), if a PRD feature was selected in Step 1:
+
+1. Update the selected feature's status in `agent-os/product/prd.md` from `draft` to `specced`
+2. Add a spec cross-reference to the feature entry:
+   ```
+   - **Spec:** agent-os/specs/{folder-name}/
+   ```
+3. Update the "Last updated" date in the PRD
+
+This step is automatic — no user interaction needed. If no PRD feature was selected, skip this step.
 
 ## Output Structure
 
