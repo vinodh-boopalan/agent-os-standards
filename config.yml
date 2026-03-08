@@ -1,0 +1,14 @@
+version: 3.0
+default_profile: tarams
+
+profiles:
+  react-native:
+    inherits_from: tarams
+  nextjs:
+    inherits_from: tarams
+  node-api:
+    inherits_from: tarams
+  python-django:
+    inherits_from: tarams
+  fullstack:
+    inherits_from: tarams

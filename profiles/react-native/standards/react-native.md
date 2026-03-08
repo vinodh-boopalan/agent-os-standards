@@ -1,0 +1,9 @@
+- Always use Expo (managed workflow unless native modules required)
+- Navigation: Expo Router (file-based)
+- State management: TanStack Query (server) + Zustand (client)
+- Styling: NativeWind (Tailwind)
+- TypeScript: strict mode + no any
+- Enable New Architecture when possible
+- Testing: Jest + React Native Testing Library
+- Performance: memo, useCallback, avoid inline functions in lists
+- Folder structure: feature-based (see architecture standards)
