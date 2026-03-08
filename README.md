@@ -88,6 +88,29 @@ cd ~/Code/your-project
 # /inject-standards  — load standards into agent context
 ```
 
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `/plan-product` | Establish product vision, roadmap, and tech stack |
+| `/create-prd` | Capture product requirements with features, personas, and acceptance criteria |
+| `/shape-spec` | Gather context and structure an implementation plan for a feature |
+| `/create-adr` | Create an Architecture Decision Record with auto-numbering and PRD cross-referencing |
+| `/update-c4` | Update C4 architecture diagrams (Structurizr DSL) interactively |
+| `/inject-standards` | Load relevant standards into agent context |
+| `/index-standards` | Rebuild the standards index file |
+| `/discover-standards` | Extract tribal knowledge from the codebase into documented standards |
+
+### Workflow
+
+```
+/plan-product → /create-prd → /shape-spec → /create-adr → implementation
+                                                  ↓
+                                             /update-c4 (optional)
+```
+
+`/create-adr` and `/update-c4` can also be run standalone at any time.
+
 ## Credits
 
 - **Agent OS** created by [Brian Casel](https://buildermethods.com) @ Builder Methods
