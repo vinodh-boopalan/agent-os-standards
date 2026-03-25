@@ -1,14 +1,16 @@
 # Agent OS Standards
 
-Shared engineering standards and AI agent profiles for consistent, high-quality software delivery across teams and tech stacks.
+A standards and workflow extension for [Agent OS](https://buildermethods.com/agent-os). Provides team-wide engineering standards organized by tech stack, plus commands that add a structured product-to-architecture pipeline on top of Agent OS's built-in workflow.
 
 Built on top of [Agent OS](https://buildermethods.com/agent-os) by Brian Casel @ [Builder Methods](https://buildermethods.com).
 
 ## What is this?
 
-This repo defines **company-wide engineering standards** as markdown files, organized into **profiles** by tech stack. When paired with Agent OS, these standards are automatically injected into AI coding agents (Claude Code, Cursor, etc.) so they build the way your team builds.
+This repo provides two things on top of Agent OS:
 
-**The result:** Every AI-assisted feature, bug fix, or refactor follows your team's conventions — not generic defaults.
+1. **Engineering standards as profiles** — Company-wide and stack-specific conventions defined as markdown files. When installed into a project, AI coding agents (Claude Code, Cursor, etc.) automatically follow your team's standards instead of generic defaults.
+
+2. **Workflow commands** — Three commands (`/create-prd`, `/create-adr`, `/update-c4`) that extend Agent OS with a structured requirements-to-architecture pipeline, complete with cross-referencing between documents.
 
 ## Profile Structure
 
@@ -31,17 +33,44 @@ profiles/
 
 Each stack profile **inherits** from the base profile, so every project gets company-wide standards plus stack-specific ones.
 
-## How It Works
+## Commands
 
-1. **Configure** — Set `default_profile` and inheritance in `config.yml`
-2. **Install** — Run `project-install.sh --profile <stack>` in any project
-3. **Build** — AI agents automatically follow your standards
+This project adds three commands that extend the Agent OS workflow:
+
+| Command | Description |
+|---------|-------------|
+| `/create-prd` | Interactive session to capture product requirements — features with IDs, user stories, acceptance criteria, personas, and non-functional requirements. Pulls context from Agent OS product docs (`mission.md`, `roadmap.md`, discovery docs) when available. |
+| `/create-adr` | Interactive session to create Architecture Decision Records — auto-numbered, optionally linked to PRD features, with cross-references back to the PRD and specs. Suggests running `/update-c4` when the decision affects architecture. |
+| `/update-c4` | Interactive session to create or modify C4 architecture diagrams in Structurizr DSL — add containers, components, relationships, external systems, and views with a full preview before saving. |
+
+### Workflow
+
+These commands fit into the broader Agent OS workflow:
+
+```
+/plan-product → /create-prd → /shape-spec → /create-adr → implementation
+                     ↑              ↑              ↓
+               (this project)  (Agent OS)     /update-c4
+```
+
+`/plan-product` and `/shape-spec` are provided by Agent OS. `/create-prd`, `/create-adr`, and `/update-c4` are provided by this project.
+
+All commands can be run standalone at any time.
+
+## Prerequisites
+
+- [Agent OS](https://buildermethods.com/agent-os) installed at `~/agent-os/`
+- An AI coding tool that supports Agent OS (Claude Code, Cursor, etc.)
+
+## Quick Start
 
 ```bash
-# Example: set up a React Native project
-cd ~/Code/my-app
+# Clone to ~/agent-os/ (or merge into existing installation)
+git clone git@github.com:vinodh-boopalan/agent-os-standards.git ~/agent-os
+
+# Install into a project
+cd ~/Code/your-project
 ~/agent-os/scripts/project-install.sh --profile react-native
-# Installs 9 standards files (6 company-wide + 3 React Native)
 ```
 
 ## Adapting for Your Team
@@ -67,49 +96,6 @@ profiles:
     inherits_from: your-company
   # add your stacks...
 ```
-
-## Prerequisites
-
-- [Agent OS](https://buildermethods.com/agent-os) installed at `~/agent-os/`
-- An AI coding tool that supports Agent OS (Claude Code, Cursor, etc.)
-
-## Quick Start
-
-```bash
-# Clone to ~/agent-os/ (or merge into existing installation)
-git clone git@github.com:vinodh-boopalan/agent-os-standards.git ~/agent-os
-
-# Install into a project
-cd ~/Code/your-project
-~/agent-os/scripts/project-install.sh --profile react-native
-
-# In your AI tool, run:
-# /index-standards   — build the standards index
-# /inject-standards  — load standards into agent context
-```
-
-## Commands
-
-| Command | Description |
-|---------|-------------|
-| `/plan-product` | Establish product vision, roadmap, and tech stack |
-| `/create-prd` | Capture product requirements with features, personas, and acceptance criteria |
-| `/shape-spec` | Gather context and structure an implementation plan for a feature |
-| `/create-adr` | Create an Architecture Decision Record with auto-numbering and PRD cross-referencing |
-| `/update-c4` | Update C4 architecture diagrams (Structurizr DSL) interactively |
-| `/inject-standards` | Load relevant standards into agent context |
-| `/index-standards` | Rebuild the standards index file |
-| `/discover-standards` | Extract tribal knowledge from the codebase into documented standards |
-
-### Workflow
-
-```
-/plan-product → /create-prd → /shape-spec → /create-adr → implementation
-                                                  ↓
-                                             /update-c4 (optional)
-```
-
-`/create-adr` and `/update-c4` can also be run standalone at any time.
 
 ## Credits
 
