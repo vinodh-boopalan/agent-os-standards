@@ -57,6 +57,41 @@ These commands fit into the broader Agent OS workflow:
 
 All commands can be run standalone at any time.
 
+### Product Documents
+
+The commands read from and write to a standard folder structure inside your project:
+
+```
+agent-os/
+├── product/                  # Product context
+│   ├── mission.md            # Product vision and goals (created by /plan-product)
+│   ├── roadmap.md            # Phases and milestones (created by /plan-product)
+│   ├── tech-stack.md         # Technology choices (created by /plan-product)
+│   └── prd.md                # Product requirements (created by /create-prd)
+│
+├── discovery/                # Client/stakeholder inputs
+│   └── *.md                  # Meeting notes, briefs, research — any docs that
+│                             # capture requirements before they're formalized
+│
+├── architecture/
+│   ├── adr/                  # Architecture Decision Records (created by /create-adr)
+│   │   ├── 001-*.md
+│   │   └── 002-*.md
+│   └── workspace.dsl         # C4 diagram in Structurizr DSL (created by /update-c4)
+│
+└── specs/                    # Implementation specs (created by /shape-spec)
+```
+
+**How it flows:**
+
+1. Run `/plan-product` (Agent OS) to establish `mission.md`, `roadmap.md`, and `tech-stack.md`
+2. Drop any client briefs, meeting notes, or research into `agent-os/discovery/`
+3. Run `/create-prd` — it reads product docs and discovery files to pre-fill requirements
+4. Run `/create-adr` — it links decisions back to PRD features
+5. Run `/update-c4` — it keeps the architecture diagram in sync with decisions
+
+Steps 1-2 are optional. `/create-prd` works without them but produces better results when product context and discovery docs are available.
+
 ## Prerequisites
 
 - [Agent OS](https://buildermethods.com/agent-os) installed at `~/agent-os/`
